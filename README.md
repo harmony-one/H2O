@@ -167,9 +167,18 @@ Network: testnet (id: 2)
 ```
 
 ## Interact with smart contract with a custom javascript
-An example custom javascript **test.js** is shown below
+A custom javascript **mint_transfer.js** is used to mint and transfer token
 ```javascript
 var HarmonyERC20 = artifacts.require("HarmonyERC20");
+
+//mint amount address
+const myAddress =   "0x3aea49553Ce2E478f1c0c5ACC304a84F5F4d1f98";
+
+//test account address, keys under
+//https://github.com/harmony-one/harmony/blob/master/.hmy/keystore/one103q7qe5t2505lypvltkqtddaef5tzfxwsse4z7.key
+const testAccount = "0x7c41e0668b551f4f902cfaec05b5bdca68b124ce";
+
+const transferAmount = 2000000;
 
 module.exports = function() {
     async function getHarmonyERC20Information() {
@@ -177,33 +186,95 @@ module.exports = function() {
         let name = await instance.name();
         let total = await instance.totalSupply();
         let decimals = await instance.decimals();
+        let mybalance = await instance.balanceOf(myAddress);
+        
+        instance.transfer(testAccount, transferAmount);
+        let testAccBalance = await instance.balanceOf(testAccount);
+
         console.log("HarmonyERC20 is deployed at address " + instance.address);
         console.log("Harmony ERC20 Information: Name    : " + name);
         console.log("Harmony ERC20 Information: Decimals: " + decimals);
         console.log("Harmony ERC20 Information: Total   : " + total.toString());
+        console.log("my address : " + myAddress);
+        console.log("test account address : " + testAccount);
+        console.log("my minted    H2O balance is: " + mybalance.toString());
+        console.log("test account H2O balance is: " + testAccBalance.toString());
+        console.log("\ntransfered " + transferAmount.toString() + " from my address (minter) to test account");
     }
     getHarmonyERC20Information();
 };
 ```
 
-## Interact with smart contract with truffle exec javascript
+A custom javascript **show_balance.js** is used to show balance
+```javascript
+var HarmonyERC20 = artifacts.require("HarmonyERC20");
+
+//mint amount address
+const myAddress =   "0x3aea49553Ce2E478f1c0c5ACC304a84F5F4d1f98";
+
+//test account address, keys under
+//https://github.com/harmony-one/harmony/blob/master/.hmy/keystore/one103q7qe5t2505lypvltkqtddaef5tzfxwsse4z7.key
+const testAccount = "0x7c41e0668b551f4f902cfaec05b5bdca68b124ce";
+
+const transferAmount = 2000000;
+
+module.exports = function() {
+    async function getHarmonyERC20Information() {
+        let instance = await HarmonyERC20.deployed();
+        let name = await instance.name();
+        let total = await instance.totalSupply();
+        let decimals = await instance.decimals();
+        let mybalance = await instance.balanceOf(myAddress);
+        let testAccBalance = await instance.balanceOf(testAccount);
+
+        console.log("HarmonyERC20 is deployed at address " + instance.address);
+        console.log("Harmony ERC20 Information: Name    : " + name);
+        console.log("Harmony ERC20 Information: Decimals: " + decimals);
+        console.log("Harmony ERC20 Information: Total   : " + total.toString());
+        console.log("my address : " + myAddress);
+        console.log("test account address : " + testAccount);
+        console.log("my minted    H2O balance is: " + mybalance.toString());
+        console.log("test account H2O balance is: " + testAccBalance.toString());
+
+    }
+    getHarmonyERC20Information();
+};
+```
+
+## Mint and send token to a test account
 
 ```bash
-$truffle exec ./test.js  --network testnet
+$ truffle exec ./mint_transfer_token.js  --network testnet
 Using network 'testnet'.
 
-HarmonyERC20 is deployed at address 0x7D9a3E70Af44E1E60a06Cd856AA60B0F3894eF59
+HarmonyERC20 is deployed at address 0xbBE1E92631C8846ff729C09FD629F98544966c6A
 Harmony ERC20 Information: Name    : HarmonyERC20
 Harmony ERC20 Information: Decimals: 18
 Harmony ERC20 Information: Total   : 1000000000000000000000000
 my address : 0x3aea49553Ce2E478f1c0c5ACC304a84F5F4d1f98
-my minted    H2O balance is: 999999999999999998000000
 test account address : 0x7c41e0668b551f4f902cfaec05b5bdca68b124ce
-test account H2O balance is: 2000000
+my minted    H2O balance is: 1000000000000000000000000
+test account H2O balance is: 0
 
-transfering 2000000 to test account
-after transfering...
- 
+transfered 2000000 from my address (minter) to test account
+```
+
+type ctrl+C to exit
+
+## Show blanance of two accounts
+
+```bash
+$ truffle exec ./show_balance.js  --network testnet
+Using network 'testnet'.
+
+HarmonyERC20 is deployed at address 0xbBE1E92631C8846ff729C09FD629F98544966c6A
+Harmony ERC20 Information: Name    : HarmonyERC20
+Harmony ERC20 Information: Decimals: 18
+Harmony ERC20 Information: Total   : 1000000000000000000000000
+my address : 0x3aea49553Ce2E478f1c0c5ACC304a84F5F4d1f98
+test account address : 0x7c41e0668b551f4f902cfaec05b5bdca68b124ce
 my minted    H2O balance is: 999999999999999998000000
 test account H2O balance is: 2000000
 ```
+
+type ctrl+C to exit

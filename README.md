@@ -166,23 +166,34 @@ Network: testnet (id: 2)
   Migrations: 0x7b5B72fD8A1A4B923Fb12fF1f50b5C84F920278d
 ```
 
-## Interact with the deployed smart contract through truffle
+## Interact with smart contract with a custom javascript
+An example custom javascript **test.js** is shown below
+```javascript
+var HarmonyERC20 = artifacts.require("HarmonyERC20");
+
+module.exports = function() {
+    async function getHarmonyERC20Information() {
+        let instance = await HarmonyERC20.deployed();
+        let name = await instance.name();
+        let total = await instance.totalSupply();
+        let decimals = await instance.decimals();
+        console.log("HarmonyERC20 is deployed at address " + instance.address);
+        console.log("Harmony ERC20 Information: Name    : " + name);
+        console.log("Harmony ERC20 Information: Decimals: " + decimals);
+        console.log("Harmony ERC20 Information: Total   : " + total.toString());
+    }
+    getHarmonyERC20Information();
+};
+```
+
+## Interact with smart contract with truffle exec javascript
 
 ```bash
-truffle console --network testnet
-truffle(testnet)> HarmonyERC20.deployed().then(function(instance){myHRC20=instance})
-undefined
-truffle(testnet)> myHRC20.symbol()
-'H20'
-truffle(testnet)> myHRC20.name()
-'HarmonyERC20'
-truffle(testnet)> myHRC20.decimals()
-BN { negative: 0, words: [ 18, <1 empty item> ], length: 1, red: null }
-truffle(testnet)> myHRC20.totalSupply()
-BN {
-  negative: 0,
-  words: [ 16777216, 62077800, 20718012, 3, <1 empty item> ],
-  length: 4,
-  red: null
-}
+$ truffle exec ./test.js  --network testnet
+Using network 'testnet'.
+
+HarmonyERC20 is deployed at address 0x0fC3E24BD559119578d0F4A1657d1701e4abBb64
+Harmony ERC20 Information: Name    : HarmonyERC20
+Harmony ERC20 Information: Decimals: 18
+Harmony ERC20 Information: Total   : 1000000000000000000000000
 ```

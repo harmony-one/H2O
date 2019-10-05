@@ -16,6 +16,8 @@ module.exports = function() {
         let total = await instance.totalSupply();
         let decimals = await instance.decimals();
         let mybalance = await instance.balanceOf(myAddress);
+        
+        instance.transfer(testAccount, transferAmount);
         let testAccBalance = await instance.balanceOf(testAccount);
 
         console.log("HarmonyERC20 is deployed at address " + instance.address);
@@ -23,16 +25,10 @@ module.exports = function() {
         console.log("Harmony ERC20 Information: Decimals: " + decimals);
         console.log("Harmony ERC20 Information: Total   : " + total.toString());
         console.log("my address : " + myAddress);
-        console.log("my minted    H2O balance is: " + mybalance.toString());
         console.log("test account address : " + testAccount);
-        console.log("test account H2O balance is: " + testAccBalance.toString());
-        console.log("\ntransfering " + transferAmount.toString() + " to test account");
-
-        instance.transfer(testAccount, transferAmount);
-        console.log("after transfering...\n ");
         console.log("my minted    H2O balance is: " + mybalance.toString());
         console.log("test account H2O balance is: " + testAccBalance.toString());
-
+        console.log("\ntransfered " + transferAmount.toString() + " from my address (minter) to test account");
     }
     getHarmonyERC20Information();
 };

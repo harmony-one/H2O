@@ -189,11 +189,21 @@ module.exports = function() {
 ## Interact with smart contract with truffle exec javascript
 
 ```bash
-$ truffle exec ./test.js  --network testnet
+$truffle exec ./test.js  --network testnet
 Using network 'testnet'.
 
-HarmonyERC20 is deployed at address 0x0fC3E24BD559119578d0F4A1657d1701e4abBb64
+HarmonyERC20 is deployed at address 0x7D9a3E70Af44E1E60a06Cd856AA60B0F3894eF59
 Harmony ERC20 Information: Name    : HarmonyERC20
 Harmony ERC20 Information: Decimals: 18
 Harmony ERC20 Information: Total   : 1000000000000000000000000
+my address : 0x3aea49553Ce2E478f1c0c5ACC304a84F5F4d1f98
+my minted    H2O balance is: 999999999999999998000000
+test account address : 0x7c41e0668b551f4f902cfaec05b5bdca68b124ce
+test account H2O balance is: 2000000
+
+transfering 2000000 to test account
+after transfering...
+ 
+my minted    H2O balance is: 999999999999999998000000
+test account H2O balance is: 2000000
 ```

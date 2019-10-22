@@ -1377,12 +1377,12 @@
     "2": {
       "events": {},
       "links": {},
-      "address": "0x59C5a8Ce880463DB9505CAc3f7966925F036fd2b",
-      "transactionHash": "0x0ab9f44188a6eba065c119fd83cd60f6dbfd0b6c7417a33242213999453fea30"
+      "address": "0x9B3CA146AA32E13cD234F62e35A493D3482A1ce5",
+      "transactionHash": "0x015b0e81c4bab3ae5ed884e239d997d5ddabbd5e5beaae8150276794ac059cd7"
     }
   },
   "schemaVersion": "3.0.16",
-  "updatedAt": "2019-10-21T04:33:19.479Z",
+  "updatedAt": "2019-10-21T15:01:28.356Z",
   "devdoc": {
     "methods": {}
   },

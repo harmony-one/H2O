@@ -16,7 +16,7 @@ const gasPrice = process.env.GAS_PRICE
 module.exports = {
   networks: {
     local: {
-      network_id: '2', // Any network (default: none)
+      network_id: '*', // Any network (default: none)
       provider: () => {
         const truffleProvider = new TruffleProvider(
           localUrl,
@@ -30,7 +30,7 @@ module.exports = {
       },
     },
     testnet: {
-      network_id: '2', // Any network (default: none)
+      network_id: '*', // Any network (default: none)
       provider: () => {
         const truffleProvider = new TruffleProvider(
           url,
@@ -44,7 +44,7 @@ module.exports = {
       },
     },
     mainnet: {
-      network_id: '2', // Any network (default: none)
+      network_id: '*', // Any network (default: none)
       provider: () => {
         const truffleProvider = new TruffleProvider(
           mainUrl,
@@ -67,7 +67,7 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
-      // version: '^0.8.0'
+      version: '^0.8.0'
     }
   }
 }

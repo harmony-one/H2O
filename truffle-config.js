@@ -1,11 +1,14 @@
 require('dotenv').config()
 const { TruffleProvider } = require('@harmony-js/core')
 const localUrl = process.env.LOCAL_URL
-const localMnemonic = process.env.LOCAL_MNEMONIC
 const localPrivateKey = process.env.LOCAL_PRIVATE_KEY
 const mnemonic = process.env.MNEMONIC
 const privateKey = process.env.PRIVATE_KEY
 const url = process.env.URL
+
+const mainMnemonic = process.env.MAIN_MNEMONIC
+const mainPrivateKey = process.env.MAIN_PRIVATE_KEY
+const mainUrl = process.env.MAIN_URL
 
 const gasLimit = process.env.GAS_LIMIT
 const gasPrice = process.env.GAS_PRICE
@@ -13,11 +16,11 @@ const gasPrice = process.env.GAS_PRICE
 module.exports = {
   networks: {
     local: {
-      network_id: '*', // Any network (default: none)
+      network_id: '2', // Any network (default: none)
       provider: () => {
         const truffleProvider = new TruffleProvider(
           localUrl,
-          { memonic: localMnemonic },
+          {},
           { shardID: 0, chainId: 2 },
           { gasLimit: gasLimit, gasPrice: gasPrice },
         )
@@ -27,7 +30,7 @@ module.exports = {
       },
     },
     testnet: {
-      network_id: '*', // Any network (default: none)
+      network_id: '2', // Any network (default: none)
       provider: () => {
         const truffleProvider = new TruffleProvider(
           url,
@@ -36,6 +39,20 @@ module.exports = {
           { gasLimit: gasLimit, gasPrice: gasPrice },
         )
         const newAcc = truffleProvider.addByPrivateKey(privateKey)
+        truffleProvider.setSigner(newAcc)
+        return truffleProvider
+      },
+    },
+    mainnet: {
+      network_id: '2', // Any network (default: none)
+      provider: () => {
+        const truffleProvider = new TruffleProvider(
+          mainUrl,
+          { memonic: mainMnemonic },
+          { shardID: 0, chainId: 2 },
+          { gasLimit: 672190, gasPrice: 1 },
+        )
+        const newAcc = truffleProvider.addByPrivateKey(mainPrivateKey)
         truffleProvider.setSigner(newAcc)
         return truffleProvider
       },
@@ -50,7 +67,7 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
-      version: '^0.8.0'
+      // version: '^0.8.0'
     }
   }
 }

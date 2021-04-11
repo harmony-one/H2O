@@ -1,14 +1,14 @@
 require('dotenv').config()
 const { TruffleProvider } = require('@harmony-js/core')
-const local_url = process.env.LOCAL_URL;
-const local_mnemonic = process.env.LOCAL_MNEMONIC
-const local_private_key = process.env.LOCAL_PRIVATE_KEY
+const localUrl = process.env.LOCAL_URL
+const localMnemonic = process.env.LOCAL_MNEMONIC
+const localPrivateKey = process.env.LOCAL_PRIVATE_KEY
 const mnemonic = process.env.MNEMONIC
-const private_key = process.env.PRIVATE_KEY
+const privateKey = process.env.PRIVATE_KEY
 const url = process.env.URL
 
-gasLimit = process.env.GAS_LIMIT
-gasPrice = process.env.GAS_PRICE
+const gasLimit = process.env.GAS_LIMIT
+const gasPrice = process.env.GAS_PRICE
 
 module.exports = {
   networks: {
@@ -16,15 +16,14 @@ module.exports = {
       network_id: '*', // Any network (default: none)
       provider: () => {
         const truffleProvider = new TruffleProvider(
-          local_url,
-          { memonic: local_mnemonic },
+          localUrl,
+          { memonic: localMnemonic },
           { shardID: 0, chainId: 2 },
-          { gasLimit: gasLimit, gasPrice: gasPrice},
-        );
-        const newAcc = truffleProvider.addByPrivateKey(local_private_key);
-        console.log(newAcc)
-        truffleProvider.setSigner(newAcc);
-        return truffleProvider;
+          { gasLimit: gasLimit, gasPrice: gasPrice },
+        )
+        const newAcc = truffleProvider.addByPrivateKey(localPrivateKey)
+        truffleProvider.setSigner(newAcc)
+        return truffleProvider
       },
     },
     testnet: {
@@ -34,12 +33,11 @@ module.exports = {
           url,
           { memonic: mnemonic },
           { shardID: 0, chainId: 2 },
-          { gasLimit: gasLimit, gasPrice: gasPrice},
-        );
-        const newAcc = truffleProvider.addByPrivateKey(private_key);
-        console.log(newAcc)
-        truffleProvider.setSigner(newAcc);
-        return truffleProvider;
+          { gasLimit: gasLimit, gasPrice: gasPrice },
+        )
+        const newAcc = truffleProvider.addByPrivateKey(privateKey)
+        truffleProvider.setSigner(newAcc)
+        return truffleProvider
       },
     },
   },

@@ -2,8 +2,11 @@ PRIVATE_KEY='0x...'
 MNEMONIC='<your mnemonic here>'
 URL='https://api.s0.b.hmny.io'
 
-LOCAL_PRIVATE_KEY='0x...'
-LOCAL_MNEMONIC='<your mnemonic here>'
+MAIN_PRIVATE_KEY="0x..."
+MAIN_MNEMONIC="..."
+MAIN_URL="https://api.s0.t.hmny.io"
+
+LOCAL_PRIVATE_KEY='...'
 LOCAL_URL='http://localhost:9500'
 
 GAS_LIMIT=67219000

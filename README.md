@@ -27,8 +27,11 @@ $truffle compile
 ```
 
 ## Deploy smart contract to Harmony's testnet 
+
+Please first copy `.envSample` to `.env` and fill in your credentials there. PRIVATE_KEY and MNEMONIC corresponds to testnet. MNEMONIC is optional. You will need to at least fill in PRIVATE_KEY if you want to run this against testnet.
+
 ```bash
-$truffle migrate --network testnet --reset
+$./migrate.sh testnet
 
 Compiling your contracts...
 ===========================

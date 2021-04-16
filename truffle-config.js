@@ -1,88 +1,73 @@
 require('dotenv').config()
 const { TruffleProvider } = require('@harmony-js/core')
-const url = process.env.LOCAL_URL;
-const account_1_mnemonic = process.env.MNEMONIC
-const account_1_private_key = process.env.PRIVATE_KEY
-const mainnet_private_key = process.env.MAINNET_PRIVATE_KEY
-const testnet_url = process.env.TESTNET_URL
-const testnet_0_url = process.env.TESTNET_0_URL
-const testnet_1_url = process.env.TESTNET_1_URL
-const mainnet_0_url = process.env.MAINNET_0_URL
-gasLimit = process.env.GAS_LIMIT
-gasPrice = process.env.GAS_PRICE
+const localUrl = process.env.LOCAL_URL
+const localPrivateKey = process.env.LOCAL_PRIVATE_KEY
+const mnemonic = process.env.MNEMONIC
+const privateKey = process.env.PRIVATE_KEY
+const url = process.env.URL
+
+const mainMnemonic = process.env.MAIN_MNEMONIC
+const mainPrivateKey = process.env.MAIN_PRIVATE_KEY
+const mainUrl = process.env.MAIN_URL
+
+const gasLimit = parseInt(process.env.GAS_LIMIT)
+const gasPrice = parseInt(process.env.GAS_PRICE)
+
+// NOTE: should not use, because TruffleProvider uses hmy_ methods for RPC calls. The 1666600000 and 1666700000 are ETH compatible chains. We don't need them.
+// const networkId = {
+//   Mainnet: 1666600000,
+//   Testnet: 1666700000,
+//   Local: 1666700000,
+// }
+
+const networkId = {
+  Mainnet: 1,
+  Testnet: 2,
+  Local: 2,
+}
 
 module.exports = {
-
-
   networks: {
-    development: {
-      network_id: '2', // Any network (default: none)
+    local: {
+      network_id: networkId.Local, // Any network (default: none)
       provider: () => {
         const truffleProvider = new TruffleProvider(
-          url,
-          { memonic: account_1_mnemonic },
-          { shardID: 0, chainId: 2 },
-          { gasLimit: gasLimit, gasPrice: gasPrice},
-        );
-        const newAcc = truffleProvider.addByPrivateKey(account_1_private_key);
-        truffleProvider.setSigner(newAcc);
-        return truffleProvider;
+          localUrl,
+          {},
+          { shardID: 0, chainId: networkId.Local },
+          { gasLimit: gasLimit, gasPrice: gasPrice },
+        )
+        const newAcc = truffleProvider.addByPrivateKey(localPrivateKey)
+        truffleProvider.setSigner(newAcc)
+        return truffleProvider
       },
     },
     testnet: {
-      network_id: '2', // Any network (default: none)
+      network_id: networkId.Testnet, // Any network (default: none)
       provider: () => {
         const truffleProvider = new TruffleProvider(
-          testnet_url,
-          { memonic: account_1_mnemonic },
-          { shardID: 0, chainId: 2 },
-          { gasLimit: gasLimit, gasPrice: gasPrice},
-        );
-        const newAcc = truffleProvider.addByPrivateKey(account_1_private_key);
-        truffleProvider.setSigner(newAcc);
-        return truffleProvider;
+          url,
+          { memonic: mnemonic },
+          { shardID: 0, chainId: networkId.Testnet },
+          { gasLimit: gasLimit, gasPrice: gasPrice },
+        )
+        const newAcc = truffleProvider.addByPrivateKey(privateKey)
+        truffleProvider.setSigner(newAcc)
+        return truffleProvider
       },
     },
-    testnet0: {
-      network_id: '2', // Any network (default: none)
+    mainnet: {
+      network_id: networkId.Mainnet, // Any network (default: none)
       provider: () => {
         const truffleProvider = new TruffleProvider(
-          testnet_0_url,
-          { memonic: account_1_mnemonic },
-          { shardID: 0, chainId: 2 },
-          { gasLimit: gasLimit, gasPrice: gasPrice },
-        );
-        const newAcc = truffleProvider.addByPrivateKey(account_1_private_key);
-        truffleProvider.setSigner(newAcc);
-        return truffleProvider;
-      },
-    },
-    testnet1: {
-      network_id: '2', // Any network (default: none)
-      provider: () => {
-        const truffleProvider = new TruffleProvider(
-          testnet_1_url,
-          { memonic: account_1_mnemonic },
-          { shardID: 1, chainId: 2 },
-          { gasLimit: gasLimit, gasPrice: gasPrice },
-        );
-        const newAcc = truffleProvider.addByPrivateKey(account_1_private_key);
-        truffleProvider.setSigner(newAcc);
-        return truffleProvider;
-      },
-    },
-    mainnet0: {
-      network_id: '1', // Any network (default: none)
-      provider: () => {
-        const truffleProvider = new TruffleProvider(
-          mainnet_0_url,
-          { memonic: account_1_mnemonic },
-          { shardID: 0, chainId: 1 },
-          { gasLimit: gasLimit, gasPrice: gasPrice },
-        );
-        const newAcc = truffleProvider.addByPrivateKey(mainnet_private_key);
-        truffleProvider.setSigner(newAcc);
-        return truffleProvider;
+          mainUrl,
+          { memonic: mainMnemonic },
+          { shardID: 0, chainId: networkId.Mainnet },
+          { gasLimit: 672190, gasPrice: 1 },
+        )
+        const newAcc = truffleProvider.addByPrivateKey(mainPrivateKey)
+        truffleProvider.setSigner(newAcc)
+        return truffleProvider
       },
     },
   },
@@ -95,6 +80,7 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
+      version: '^0.8.0'
     }
   }
 }

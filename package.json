@@ -1,12 +1,19 @@
 {
   "name": "harmony-erc20",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Harmony sample ERC20 deploy",
   "main": "truffle.js",
   "dependencies": {
-    "@harmony-js/core": "^0.1.22",
-    "tslib": "^1.10.0",
+    "@harmony-js/core": "^0.1.57",
+    "@openzeppelin/contracts": "^4.0.0",
     "dotenv": "^8.1.0",
-    "openzeppelin-solidity": "^2.2.0"
+    "tslib": "^1.10.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.0.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-truffle": "polymorpher/eslint-plugin-truffle#v0.3.2",
+    "standard": "^12.0.1"
   }
 }

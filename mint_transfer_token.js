@@ -12,10 +12,9 @@ module.exports = function () {
     let total = await instance.totalSupply()
     let decimals = await instance.decimals()
     let mybalance = await instance.balanceOf(myAddress)
-
-    instance.transfer(testAccount, transferAmount)
+    console.log('Transferring... Waiting for confirmation')
+    await instance.transfer(testAccount, transferAmount)
     let testAccBalance = await instance.balanceOf(testAccount)
-
     console.log('HarmonyERC20 is deployed at address ' + instance.address)
     console.log('Harmony ERC20 Information: Name    : ' + name)
     console.log('Harmony ERC20 Information: Decimals: ' + decimals)

@@ -28,6 +28,7 @@ module.exports = {
         truffleProvider.setSigner(newAcc);
         return truffleProvider;
       },
+      skipDryRun: true,
     },
     testnet: {
       network_id: '2', // Any network (default: none)
@@ -42,6 +43,7 @@ module.exports = {
         truffleProvider.setSigner(newAcc);
         return truffleProvider;
       },
+      skipDryRun: true,
     },
     testnet0: {
       network_id: '2', // Any network (default: none)
@@ -56,6 +58,7 @@ module.exports = {
         truffleProvider.setSigner(newAcc);
         return truffleProvider;
       },
+      skipDryRun: true,
     },
     testnet1: {
       network_id: '2', // Any network (default: none)
@@ -70,6 +73,7 @@ module.exports = {
         truffleProvider.setSigner(newAcc);
         return truffleProvider;
       },
+      skipDryRun: true,
     },
     mainnet0: {
       network_id: '1', // Any network (default: none)
@@ -84,6 +88,7 @@ module.exports = {
         truffleProvider.setSigner(newAcc);
         return truffleProvider;
       },
+      skipDryRun: true,
     },
   },
 
